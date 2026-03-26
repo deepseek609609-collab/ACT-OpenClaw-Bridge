@@ -24,16 +24,16 @@ cd "$INSTALL_DIR"
 # 3. 下载代码
 if command -v git &> /dev/null; then
     echo "📥 使用 git 克隆代码..."
-    git clone https://github.com/act-kernel/act-openclaw-bridge.git
-    CODE_DIR="$INSTALL_DIR/act-openclaw-bridge"
+    git clone https://github.com/deepseek609609-collab/ACT-OpenClaw-Bridge.git
+    CODE_DIR="$INSTALL_DIR/ACT-OpenClaw-Bridge"
 else
     echo "📥 未找到 git，下载 zip 压缩包..."
-    ZIP_URL="https://github.com/act-kernel/act-openclaw-bridge/archive/refs/heads/main.zip"
+    ZIP_URL="https://github.com/deepseek609609-collab/ACT-OpenClaw-Bridge/archive/refs/heads/main.zip"
     ZIP_FILE="$INSTALL_DIR/bridge.zip"
     curl -L -o "$ZIP_FILE" "$ZIP_URL"
     unzip -q "$ZIP_FILE" -d "$INSTALL_DIR"
     rm "$ZIP_FILE"
-    CODE_DIR="$INSTALL_DIR/act-openclaw-bridge-main"
+    CODE_DIR="$INSTALL_DIR/ACT-OpenClaw-Bridge-main"
 fi
 cd "$CODE_DIR"
 
@@ -133,6 +133,14 @@ curl -s -X POST http://localhost:9000/act/dispatch \
 当用户询问天气时，使用 `weather.get_current` 工具，将城市名作为参数传入。
 EOF
 echo "✅ 已添加 OpenClaw 技能: $SKILL_DIR/SKILL.md"
+
+# 7. 生成所有 ACT 工具的 OpenClaw 技能镜像
+echo "🔄 生成 OpenClaw 技能镜像..."
+cd "$CODE_DIR"
+source venv/bin/activate
+pip install act-kernel  # 确保 ACT Kernel 已安装
+python act_openclaw_skill_mirror.py
+echo "✅ 已生成所有 ACT 工具的 OpenClaw 技能镜像"
 
 # 7. 测试服务
 echo "🔍 等待服务启动..."

@@ -31,5 +31,5 @@ where = ["."]
 include = ["act*", "examples*", "docs*"]
 
 [project.urls]
-Homepage = "https://github.com/deepseek609609-collab/act-openclaw-bridge"
-Repository = "https://github.com/deepseek609609-collab/act-openclaw-bridge"
+Homepage = "https://github.com/deepseek609609-collab/ACT-OpenClaw-Bridge"
+Repository = "https://github.com/deepseek609609-collab/ACT-OpenClaw-Bridge"
