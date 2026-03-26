@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "act-openclaw-bridge"
-version = "1.0.0"
+version = "1.0.1"
 description = "ACT Gateway for OpenClaw Integration with one-click installation"
 readme = "README.md"
 license = {text = "MIT"}
