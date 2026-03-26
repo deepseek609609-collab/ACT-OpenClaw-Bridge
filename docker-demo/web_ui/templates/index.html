@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ACT Gateway Demo</title>
+    <style>
+        body { font-family: sans-serif; max-width: 800px; margin: auto; padding: 20px; }
+        button { margin: 5px; padding: 8px 12px; cursor: pointer; }
+        pre { background: #f4f4f4; padding: 10px; border-radius: 5px; overflow-x: auto; }
+        .result { margin-top: 20px; }
+        .error { color: red; }
+    </style>
+</head>
+<body>
+    <h1>ACT Gateway Demo</h1>
+    <p>演示超时、限流、熔断效果</p>
+
+    <h2>调用天气工具</h2>
+    <button onclick="callTool('weather.get_current', {city:'Beijing'})">正常调用</button>
+    <button onclick="callTool('weather.slow', {})">超时工具 (2s → 1s timeout)</button>
+    <button onclick="callTool('weather.error', {})">错误工具 (触发熔断)</button>
+
+    <h2>限流测试 (连续快速调用)</h2>
+    <button id="rateLimitBtn">连续调用5次</button>
+
+    <div class="result">
+        <h3>结果:</h3>
+        <pre id="output">等待调用...</pre>
+    </div>
+
+    <script>
+        async function callTool(intent, params) {
+            const output = document.getElementById('output');
+            output.textContent = '调用中...';
+            try {
+                const resp = await fetch('/api/call', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({intent, params})
+                });
+                const data = await resp.json();
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = '错误: ' + err.message;
+            }
+        }
+
+        document.getElementById('rateLimitBtn').onclick = async () => {
+            const output = document.getElementById('output');
+            output.textContent = '开始限流测试...';
+            for (let i = 1; i <= 5; i++) {
+                await new Promise(r => setTimeout(r, 100));
+                const resp = await fetch('/api/call', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({intent: 'weather.get_current', params: {city: 'Beijing'}})
+                });
+                const data = await resp.json();
+                const status = data.execution?.status || 'error';
+                output.textContent += `\n调用 ${i}: ${status}`;
+            }
+            output.textContent += '\n限流测试完成。';
+        };
+    </script>
+</body>
+</html>

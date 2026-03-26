@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ACT – Execution Layer for AI Agents</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Inter', system-ui, -apple-system, sans-serif; line-height: 1.5; color: #111; background: #f9fafb; }
+        .container { max-width: 1200px; margin: 0 auto; padding: 2rem; }
+        header { text-align: center; margin-bottom: 3rem; }
+        h1 { font-size: 3rem; font-weight: 800; background: linear-gradient(135deg, #1e3c72, #2b6cb0); -webkit-background-clip: text; background-clip: text; color: transparent; margin-bottom: 1rem; }
+        .subhead { font-size: 1.25rem; color: #4a5568; max-width: 700px; margin: 0 auto; }
+        .badges { margin: 1.5rem 0; display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; }
+        .badge { background: #e2e8f0; padding: 0.25rem 0.75rem; border-radius: 9999px; font-size: 0.875rem; color: #2d3748; }
+        .install { background: #1a202c; color: white; padding: 1rem; border-radius: 1rem; text-align: center; margin: 2rem 0; }
+        .install code { background: #2d3748; padding: 0.5rem 1rem; border-radius: 0.5rem; display: inline-block; margin-top: 0.5rem; font-family: monospace; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem; margin: 3rem 0; }
+        .card { background: white; padding: 1.5rem; border-radius: 1rem; box-shadow: 0 4px 6px rgba(0,0,0,0.05); }
+        .card h3 { margin-bottom: 1rem; font-size: 1.25rem; }
+        .demo-gif { background: #e2e8f0; height: 200px; border-radius: 0.5rem; display: flex; align-items: center; justify-content: center; color: #4a5568; margin: 1rem 0; font-size: 0.875rem; }
+        footer { text-align: center; margin-top: 4rem; padding-top: 2rem; border-top: 1px solid #e2e8f0; color: #718096; }
+        a { color: #3182ce; text-decoration: none; }
+        a:hover { text-decoration: underline; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>ACT – Execution Layer for AI Agents</h1>
+            <p class="subhead">将不可靠的工具调用变成生产级执行。<br>为 OpenClaw、CrewAI、MCP 提供超时、重试、限流、熔断、统一观测。</p>
+            <div class="badges">
+                <span class="badge">⚡ 超时控制</span>
+                <span class="badge">🔄 自动重试</span>
+                <span class="badge">🚦 限流保护</span>
+                <span class="badge">🔌 熔断机制</span>
+                <span class="badge">📊 统一观测</span>
+            </div>
+        </header>
+
+        <div class="install">
+            <strong>🚀 一键安装</strong><br>
+            <code>curl -fsSL https://raw.githubusercontent.com/deepseek609609-collab/ACT-OpenClaw-Bridge/main/install.sh | bash</code>
+            <p style="margin-top: 1rem; font-size: 0.875rem;">✅ 支持 Linux/macOS/Windows ✅ 自动配置 OpenClaw 技能 ✅ 提供 MCP 兼容端点</p>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>🦞 替换 OpenClaw 执行器</h3>
+                <p>将 OpenClaw 的默认工具执行器替换为 ACT，一行代码获得生产级治理。</p>
+                <pre style="background:#f1f5f9; padding:0.5rem; border-radius:0.5rem; overflow-x:auto;"><code>from act_openclaw_runtime import patch_openclaw
+patch_openclaw(openclaw_app)</code></pre>
+            </div>
+            <div class="card">
+                <h3>🔌 MCP 原生兼容</h3>
+                <p>完全实现 MCP 协议端点，任何 MCP 客户端（Claude、Cursor）可直接调用 ACT 工具。</p>
+                <pre style="background:#f1f5f9; padding:0.5rem; border-radius:0.5rem;"><code>POST /mcp/tools/list
+POST /mcp/tools/call</code></pre>
+            </div>
+            <div class="card">
+                <h3>🐳 一键 Docker 体验</h3>
+                <p>30 秒体验超时、限流、熔断效果，无需安装任何依赖。</p>
+                <pre style="background:#f1f5f9; padding:0.5rem; border-radius:0.5rem;"><code>git clone ...
+cd docker-demo && docker-compose up</code></pre>
+            </div>
+        </div>
+
+        <div class="demo-gif">
+            ⏺ 演示 GIF 占位：连续请求 → 限流拒绝；慢请求 → 超时；连续失败 → 熔断打开
+        </div>
+
+        <div style="background:#e6fffa; border-left: 4px solid #319795; padding: 1rem; margin: 2rem 0;">
+            <strong>📢 为什么需要 ACT？</strong><br>
+            LLM Agent 在调用外部工具时，常因超时、限流、下游故障而崩溃。ACT 在 Agent 和工具之间插入一个控制层，让执行变得稳定、可观测、可治理。
+        </div>
+
+        <div style="text-align: center;">
+            <a href="https://github.com/deepseek609609-collab/ACT-OpenClaw-Bridge" class="badge" style="background:#1a202c; color:white; text-decoration:none; padding:0.5rem 1rem; display:inline-block;">⭐ Star on GitHub</a>
+        </div>
+
+        <footer>
+            MIT Licensed · 由 ACT Kernel 社区维护 · 贡献者招募中
+        </footer>
+    </div>
+</body>
+</html>

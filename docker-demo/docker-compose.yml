@@ -1,0 +1,18 @@
+version: '3.8'
+
+services:
+  act-gateway:
+    build: .
+    ports:
+      - "9000:9000"
+    restart: unless-stopped
+
+  web-ui:
+    build: ./web_ui
+    ports:
+      - "8080:8080"
+    environment:
+      - ACT_GATEWAY_URL=http://act-gateway:9000
+    depends_on:
+      - act-gateway
+    restart: unless-stopped

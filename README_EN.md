@@ -10,10 +10,6 @@
 
 > Turn unreliable tool calls into deterministic execution.
 
-<div align="right">
-  <small><a href="README_ZH.md">中文版</a> | <a href="README_EN.md">English</a></small>
-</div>
-
 ## Why ACT Gateway?
 
 | Capability | Native Agent Calls | Through ACT Gateway |
