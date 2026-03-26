@@ -39,14 +39,26 @@ graph TD
     D & E & F & G & H --> I[实际工具<br/>（API / 脚本 / 函数）]
 ```
 
-## 一键安装
+## 🚀 快速开始
 
-### Linux / macOS
+### 从 PyPI 安装（推荐）
+
+```bash
+# 安装核心包
+pip install act-openclaw-bridge
+
+# 安装所有可选依赖
+pip install act-openclaw-bridge[all]
+```
+
+### 一键安装脚本
+
+#### Linux / macOS
 ```bash
 curl -fsSL https://raw.githubusercontent.com/deepseek609609-collab/ACT-OpenClaw-Bridge/main/install.sh | bash
 ```
 
-### Windows (PowerShell 管理员)
+#### Windows (PowerShell 管理员)
 ```powershell
 powershell -ExecutionPolicy Bypass -Command "& { Invoke-WebRequest -Uri 'https://raw.githubusercontent.com/deepseek609609-collab/ACT-OpenClaw-Bridge/main/install.ps1' -OutFile install.ps1; .\install.ps1 }"
 ```
